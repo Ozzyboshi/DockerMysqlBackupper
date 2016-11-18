@@ -12,11 +12,11 @@ if [ -z "$PASSWORD" ]; then
     PASSWORD=""
 fi
 
-if [ -z "$DBNAMES" ]; then
+if [ -z "$SECONDS" ]; then
     SECONDS="3600"
 fi
 
-if [ -z "$SECONDS" ]; then
+if [ -z "$DBNAMES" ]; then
     echo "Set database names in DBNAMES env var"
     exit 1
 fi
