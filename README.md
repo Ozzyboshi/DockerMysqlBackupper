@@ -1,5 +1,6 @@
 # DockerMysqlBackupper
-Docker script to automate mysql backups to Dropbox Google Drive and others
+Docker script to automate mysql backups to Dropbox Google Drive and others.
+
 DockerMysqlBackupper relies on automysqlbackup for backupping and on rclone for remote syncing.
 
 Usage : 
