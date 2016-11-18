@@ -12,8 +12,12 @@ if [ -z "$PASSWORD" ]; then
     PASSWORD=""
 fi
 
-if [ -z "$SECONDS" ]; then
+if [ -z "$DBNAMES" ]; then
     SECONDS="3600"
+fi
+
+if [ -z "$SECONDS" ]; then
+    echo "Set database names in DBNAMES env var"
     exit 1
 fi
 
@@ -22,7 +26,6 @@ if [ ! -f "/root/.rclone.conf" ]; then rclone config; fi
 sed -i '/DBHOST=localhost/c\DBHOST='"$DBHOST"'' /etc/default/automysqlbackup
 sed -i '7 i\USERNAME='"$USERNAME"'' /etc/default/automysqlbackup
 sed -i '10 i\PASSWORD='"$PASSWORD"'' /etc/default/automysqlbackup
-if [ -z "$DBNAMES" ]; then
-    sed -i '/^DBNAMES=/c\DBNAMES='"$DBNAMES"'' /etc/default/automysqlbackup
-fi
+sed -i '/^DBNAMES=/c\DBNAMES='"$DBNAMES"'' /etc/default/automysqlbackup
+
 watch -n1 --interval $SECONDS  'automysqlbackup ; /mysqluploader.sh'
