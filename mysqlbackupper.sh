@@ -13,7 +13,7 @@ if [ -z "$PASSWORD" ]; then
 fi
 
 if [ -z "$SECONDS" ]; then
-    $SECONDS=3600
+    SECONDS=3600
     exit 1
 fi
 
