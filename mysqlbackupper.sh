@@ -23,6 +23,11 @@ if [ -z "$DBNAMES" ]; then
     exit 1
 fi
 
+if [ -z "$TARGETDIR" ]; then
+    echo "Targetdir env var not found"
+    exit 1
+fi
+
 
 sed -i '/DBHOST=localhost/c\DBHOST='"$DBHOST"'' /etc/default/automysqlbackup
 sed -i '7 i\USERNAME='"$USERNAME"'' /etc/default/automysqlbackup
