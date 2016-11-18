@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ ! -f "/root/.rclone.conf" ]; then rclone config;exit 0; fi
+
 if [ -z "$DBHOST" ]; then
     DBHOST="localhost"
 fi
@@ -21,7 +23,6 @@ if [ -z "$DBNAMES" ]; then
     exit 1
 fi
 
-if [ ! -f "/root/.rclone.conf" ]; then rclone config; fi
 
 sed -i '/DBHOST=localhost/c\DBHOST='"$DBHOST"'' /etc/default/automysqlbackup
 sed -i '7 i\USERNAME='"$USERNAME"'' /etc/default/automysqlbackup
