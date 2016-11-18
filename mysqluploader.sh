@@ -6,6 +6,6 @@ if [ -z "$TARGETDIR" ]; then
 fi
 
 for target in $(grep '^\[.*\]$' /root/.rclone.conf  | cut -c 2- | rev | cut -c 2- | rev); do
-	echo 'rclone sync /var/lib/automysqlbackup $target:/automysqlbackup/'
+	echo 'rclone sync /var/lib/automysqlbackup $target:/$TARGETDIR'
 	rclone sync /var/lib/automysqlbackup $target:/$TARGETDIR
 done
