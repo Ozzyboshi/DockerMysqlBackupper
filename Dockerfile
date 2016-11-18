@@ -14,6 +14,7 @@ RUN cd rclone-*-linux-amd64 && cp rclone /usr/sbin/ && chown root:root /usr/sbin
 # Add custom scripts
 ADD mysqlbackupper.sh /mysqlbackupper.sh
 ADD mysqluploader.sh /mysqluploader.sh
+RUN chmod +x /mysqlbackupper.sh /mysqluploader.sh
 
 CMD ["/mysqlbackupper.sh"]
 
