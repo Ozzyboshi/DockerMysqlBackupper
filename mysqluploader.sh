@@ -5,7 +5,6 @@ if [ -z "$TARGETDIR" ]; then
     exit 1
 fi
 
-for target in $(grep '^\[.*\]$' /root/.rclone.conf  | cut -c 2- | rev | cut -c 2- | rev); do
-	echo 'rclone sync /var/lib/automysqlbackup $target:/$TARGETDIR'
+printf '%s\n' "$(grep '^\[.*\]$' /root/.rclone.conf | cut -c 2- | rev | cut -c 2- | rev)" | while IFS= read -r target
 	rclone sync /var/lib/automysqlbackup $target:/$TARGETDIR
 done
