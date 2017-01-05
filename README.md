@@ -13,7 +13,7 @@ mkdir rclone
 docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
 ```
   
-This will start the rclone configuration wizards, at the end you will get a new .rclone.conf file withing the rclone directory you just created.
+This will start the rclone configuration wizards, at the end you will get a new .rclone.conf file within the rclone directory you just created.
 
 ## Start the backup process
 To start the backup process you must run the container in daemon mode passing the options in the appropriate environment variables, for example the following command will backup every 60 seconds the database 'mydatabase' connecting to the mysql server listening at 127.0.0.1:3306 tcp using login=root and password=my-secret-pw.
