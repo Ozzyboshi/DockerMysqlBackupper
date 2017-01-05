@@ -1,13 +1,17 @@
 # DockerMysqlBackupper
 Dockermysqlbackupper is a docker container for automating mysql backups to Dropbox, Google Drive and others.
-
-DockerMysqlBackupper relies on automysqlbackup for backupping and on rclone for remote syncing.
+DockerMysqlBackupper relies on [automysqlbackup](https://sourceforge.net/projects/automysqlbackup/) for backup creation and [rclone](http://rclone.org/) for remote syncing.
 
 ## Prerequisites
+Just a linux box with docker installed
+
+## Setup
 Before using DockerMysqlBackupper you must have a working .rclone.conf file to feed rclone, if you don't have one you can generate it easily with DockerMysqlBackupper itself, for example:
 
-  mkdir rclone
-  docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
+```
+mkdir rclone
+docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
+```
   
 This will start the rclone configuration wizards, at the end you will get a new .rclone.conf file withing the rclone directory you just created.
 
@@ -15,7 +19,9 @@ This will start the rclone configuration wizards, at the end you will get a new 
 To start the backup process you must run the container in daemon mode passing the options in the appropriate environment variables, for example the following command will backup every 60 seconds the database 'mydatabase' connecting to the mysql server listening at 127.0.0.1:3306 tcp using login=root and password=my-secret-pw.
 The backup files will be stored into the remote directory automysqlbackup/machine1.
 
-  docker run --name mysqlbackupper -e DBHOST=some-mysql -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=60 -e DBNAMES=mydatabase -e TARGETDIR=automysqlbackup/machine1 -d -t ozzyboshi/dockermysqlbackupper
+```
+docker run --name mysqlbackupper -e DBHOST=some-mysql -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=60 -e DBNAMES=mydatabase -e TARGETDIR=automysqlbackup/machine1 -d -t ozzyboshi/dockermysqlbackupper
+```
 
 ## Example
 In the following example I am going to backup the database nextcloud from a mysql listening on 10.0.12:3306 tcp into my Google Drive starting from scratch.
