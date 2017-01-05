@@ -28,7 +28,7 @@ In the following example I am going to backup the database nextcloud from a mysq
 At the first run we must generate a rclone.conf file for Google Drive:
 
 ```
-docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
+docker run --rm -v $(pwd)/rclone:/root -it ozzyboshi/dockermysqlbackupper
   2017/01/05 13:18:25 Failed to load config file "/root/.rclone.conf" - using defaults: open /root/.rclone.conf: no such file or directory
   No remotes found - make a new one
   n) New remote
@@ -109,7 +109,13 @@ Now copy and paste the url to your browser, at the end of the process you will g
 Now it's time to launch the backupper damon :
 
 ```
-docker run --name mysqlbackupper -v $(HOME)/rclone:/root -e DBHOST=10.0.0.14 -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=nextcloud -e TARGETDIR=automysqlbackup/nextcloud -d -t  ozzyboshi/dockermysqlbackupper
+docker run --name mysqlbackupper -v $(pwd)/rclone:/root -e DBHOST=10.0.0.14 -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=nextcloud -e TARGETDIR=automysqlbackup/nextcloud -d -t  ozzyboshi/dockermysqlbackupper
 ```
 
-Time go to your grive account and you should see a automysqlbackup/nextcloud directory with your automated backups.
+Time go to your Google Drive account and you should see a 'automysqlbackup/nextcloud' directory with your automated backups in it.
+
+It is also possible to take advantage of the docker --link option if you want to backup data from a mysql server living inside another docker container in the same docker host:
+
+```
+docker run --name mysqlbackupper -v $(pwd)/rclone:/root -e DBHOST=some-mysql -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=lettureenel -e TARGETDIR=automysqlbackup/nextcloud -d -t --link some-mysql ozzyboshi/dockermysqlbackupper
+```
