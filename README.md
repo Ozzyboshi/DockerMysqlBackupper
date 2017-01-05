@@ -21,7 +21,8 @@ The backup files will be stored into the remote directory automysqlbackup/machin
 In the following example I am going to backup the database nextcloud from a mysql listening on 10.0.12:3306 tcp into my Google Drive starting from scratch.
 At the first run we must generate a rclone.conf file for Google Drive:
 
-  docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
+```
+docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
   2017/01/05 13:18:25 Failed to load config file "/root/.rclone.conf" - using defaults: open /root/.rclone.conf: no such file or directory
   No remotes found - make a new one
   n) New remote
@@ -69,9 +70,11 @@ At the first run we must generate a rclone.conf file for Google Drive:
   y/n> n
   If your browser doesn't open automatically go to the following link: https://accounts.google.com/o/oauth2/auth?client_id=aaaaaaaa.apps.googleusercontent.com&redirect_uri=bbbbbbbbbbbbbbb&response_type=code&scope=ccccccccccc&state=ddd
   Log in and authorize rclone for access
+```  
   
 Now copy and paste the url to your browser, at the end of the process you will get an authorization code from google, paste it after the verification code prompt:
 
+```
   Enter verification code> #enter code
   --------------------
   [Nextcloud gdrive backup]
@@ -95,8 +98,12 @@ Now copy and paste the url to your browser, at the end of the process you will g
   s) Set configuration password
   q) Quit config
   e/n/d/s/q> q
+```
 
 Now it's time to launch the backupper damon :
-docker run --name mysqlbackupper -v $(HOME)/rclone:/root -e DBHOST=10.0.0.14 -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=nextcloud -e TARGETDIR=automysqlbackup/nextcloud -d -t  ozzyboshi/dockermysqlbackupper
 
-Now go to your grive account and you should see a automysqlbackup/nextcloud directory with your automated backups.
+```
+docker run --name mysqlbackupper -v $(HOME)/rclone:/root -e DBHOST=10.0.0.14 -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=nextcloud -e TARGETDIR=automysqlbackup/nextcloud -d -t  ozzyboshi/dockermysqlbackupper
+```
+
+Time go to your grive account and you should see a automysqlbackup/nextcloud directory with your automated backups.
