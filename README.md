@@ -10,7 +10,7 @@ Before using DockerMysqlBackupper you must have a working .rclone.conf file to f
 
 ```
 mkdir rclone
-docker run --rm -v /home/ozzy/rclone:/root -it ozzyboshi/dockermysqlbackupper
+docker run --rm -v $HOME/rclone:/root -it ozzyboshi/dockermysqlbackupper
 ```
   
 This will start the rclone configuration wizards, at the end you will get a new .rclone.conf file within the rclone directory you just created.
@@ -117,5 +117,5 @@ Time go to your Google Drive account and you should see a 'automysqlbackup/nextc
 It is also possible to take advantage of the docker --link option if you want to backup data from a mysql server living inside another docker container in the same docker host:
 
 ```
-docker run --name mysqlbackupper -v $(pwd)/rclone:/root -e DBHOST=some-mysql -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=lettureenel -e TARGETDIR=automysqlbackup/nextcloud -d -t --link some-mysql ozzyboshi/dockermysqlbackupper
+docker run --name mysqlbackupper -v $(pwd)/rclone:/root -e DBHOST=some-mysql -e USERNAME=root -e PASSWORD=my-secret-pw -e SECONDS=86400 -e DBNAMES=lettureenel -e TARGETDIR=automysqlbackup/lettureenel -d -t --link some-mysql ozzyboshi/dockermysqlbackupper
 ```
